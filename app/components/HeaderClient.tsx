@@ -17,13 +17,13 @@ export default function HeaderClient({ categories }: HeaderClientProps) {
         <h1 className="text-2xl md:text-3xl font-bold flex items-center">
           <Image
             src="/images/health-food-trivia-avocado-logo.png"
-            alt="Health Food Trivia the Vegan Edition Logo"
+            alt="Plant-based Trivia the Vegan Edition Logo"
             width={442/4}
             height={435/4}
             priority
             className='pr-2'
           />
-          <span className='min-w-44'>Health Food Trivia</span>
+          <span className='min-w-44'>Plant-based Trivia</span>
         </h1>
       </Link>
 

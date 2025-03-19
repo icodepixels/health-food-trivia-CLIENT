@@ -1,4 +1,4 @@
-# MVP Requirements
+# Plant-based Trivia MVP Requirements
 
 ## Frontend (Next.js + Turbopack + Redux)
 • Landing page with quiz categories (nutrition, sustainability, ethics, history, science, culture)
