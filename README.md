@@ -1,88 +1,28 @@
+# MVP Requirements
 
-MVP Requirements:
-	1.	Frontend (Next.js + Turbopack + Redux)
-    •	Landing page with quiz categories (nutrition, sustainability, ethics, history, science, culture).
-    •	Quiz interface with multiple-choice questions.
-    •	Email submission form for tracking progress.
-    •	Results page showing correct answers and score.
-	2.	Backend (Python)
-    •	API endpoints for:
-    •	Fetching categories data.
-    •	Fetching quiz data.
-    •	Submitting quiz answers.
-    •	Storing user email and quiz results.
-    •	Simple input validation and error handling.
-	3.	Database (SQLite)
-    •	Users table (email, timestamp, results_id).
-    •	Quizzes table (see Quiz model).
-    •	Results table (user_id, quiz_id, score).
-	4.	Additional Features
-    •	Basic email format validation.
-    •	Session management (using cookies or tokens for tracking progress).
-    •	Endpoint to add or modify quizzes via Postman.
+## Frontend (Next.js + Turbopack + Redux)
+• Landing page with quiz categories (nutrition, sustainability, ethics, history, science, culture)
+• Quiz interface with multiple-choice questions
+• Email submission form for tracking progress
+• Results page showing correct answers and score
 
+## Backend (Python)
+• API endpoints for:
+  - Fetching categories data
+  - Fetching quiz data
+  - Submitting quiz answers
+  - Storing user email and quiz results
+  - Simple input validation and error handling
 
+## Database (SQLite)
+• Users table (email, timestamp, results_id)
+• Quizzes table (see Quiz model)
+• Results table (user_id, quiz_id, score)
 
-
-Quiz and questions JSON format:
-{
-  "quiz": {
-    "name": "Vegan Nutrition: Balancing Essential Nutrients",
-    "description": "Test your knowledge on key nutrients, potential deficiencies, and optimal food choices for a well-planned vegan diet.",
-    "image": "vegan_nutrition_balance.jpg",
-    "category": "nutrition",
-    "difficulty": "hard"
-  },
-  "questions": [
-    {
-      "question_text": "Which nutrient, essential for vegans, requires careful planning or supplementation due to its absence in plant foods?",
-      "choices": ["Vitamin C", "Vitamin B12", "Vitamin K", "Vitamin E"],
-      "correct_answer_index": 1,
-      "explanation": "Vitamin B12 is primarily found in animal products. Vegans must obtain it through supplements or fortified foods to prevent deficiency.",
-      "image": "vitamin_b12_sources.jpg",
-      "difficulty": "hard",
-      "category": "nutrition"
-    },
-    {
-      "question_text": "Which essential amino acid is particularly important for vegans to focus on due to its lower presence in plant proteins?",
-      "choices": ["Leucine", "Lysine", "Valine", "Threonine"],
-      "correct_answer_index": 1,
-      "explanation": "Lysine is an essential amino acid that vegans need to pay special attention to, as it's less abundant in plant proteins. Good vegan sources include avocados and legumes.",
-      "image": "lysine_sources.jpg",
-      "difficulty": "hard",
-      "category": "nutrition"
-    },
-    {
-      "question_text": "What nutrient, important for bone health, requires careful planning in a vegan diet?",
-      "choices": ["Potassium", "Magnesium", "Calcium", "Sodium"],
-      "correct_answer_index": 2,
-      "explanation": "Calcium is crucial for bone health and requires careful planning in a vegan diet. Good sources include fortified plant milks and dark green leafy vegetables.",
-      "image": "vegan_calcium_sources.jpg",
-      "difficulty": "hard",
-      "category": "nutrition"
-    },
-    {
-      "question_text": "Which nutrient, important for brain function and heart health, may be challenging to obtain in a vegan diet without supplementation?",
-      "choices": ["Omega-3 fatty acids", "Vitamin D", "Zinc", "Iodine"],
-      "correct_answer_index": 0,
-      "explanation": "Omega-3 fatty acids, particularly EPA and DHA, can be challenging to obtain in a vegan diet. While ALA is found in plant sources, conversion to EPA and DHA is limited, making supplementation often necessary.",
-      "image": "omega3_sources.jpg",
-      "difficulty": "hard",
-      "category": "nutrition"
-    },
-    {
-      "question_text": "What mineral, important for immune function and protein synthesis, may require special attention in a vegan diet?",
-      "choices": ["Copper", "Selenium", "Zinc", "Manganese"],
-      "correct_answer_index": 2,
-      "explanation": "Zinc is important for immune function and protein synthesis. It may require special attention in a vegan diet due to lower bioavailability in plant foods and the presence of absorption inhibitors like phytates.",
-      "image": "zinc_sources.jpg",
-      "difficulty": "hard",
-      "category": "nutrition"
-    }
-  ]
-}
-
-
+## Additional Features
+• Basic email format validation
+• Session management (using cookies or tokens for tracking progress)
+• Endpoint to add or modify quizzes via Postman
 
 The server will start on `http://127.0.0.1:5000/`.
 
