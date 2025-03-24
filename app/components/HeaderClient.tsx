@@ -1,8 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Category } from '../types';
+import SignUpModal from './SignUpModal';
 
 interface HeaderClientProps {
   categories: Category[];
@@ -10,20 +12,49 @@ interface HeaderClientProps {
 
 export default function HeaderClient({ categories }: HeaderClientProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasSignedUp, setHasSignedUp] = useState(false);
+  const router = useRouter();
+
+  const checkEmailStatus = () => {
+    const userEmail = localStorage.getItem('userEmail');
+    setHasSignedUp(!!userEmail);
+  };
+
+  useEffect(() => {
+    // Check initial status
+    checkEmailStatus();
+
+    // Add event listener for email status changes
+    window.addEventListener('emailStatusChanged', checkEmailStatus);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('emailStatusChanged', checkEmailStatus);
+    };
+  }, []);
+
+  const handleActionClick = () => {
+    if (hasSignedUp) {
+      router.push('/profile');
+    } else {
+      setIsModalOpen(true);
+    }
+  };
 
   return (
-    <header className='w-full flex flex-wrap items-center'>
+    <header className='w-full flex flex-wrap-reverse items-center'>
       <Link href="/" className="hover:opacity-90 transition-opacity">
         <h1 className="text-2xl md:text-3xl font-bold flex items-center">
           <Image
             src="/images/health-food-trivia-avocado-logo.png"
-            alt="Plant-based Trivia the Vegan Edition Logo"
+            alt="Veggie Quiz the Vegan Edition Logo"
             width={442/4}
             height={435/4}
             priority
             className='pr-2'
           />
-          <span className='min-w-44'>Plant-based Trivia</span>
+          <span className='min-w-44 text-[#204642]'>Veggie Quiz</span>
         </h1>
       </Link>
 
@@ -47,16 +78,26 @@ export default function HeaderClient({ categories }: HeaderClientProps) {
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="hidden lg:flex space-x-6 items-center ml-auto">
-        {categories.map((category) => (
-          <Link
-            key={category.name}
-            href={`/quizzes/${category.name}`}
-            className="hover:text-[#43855b] transition-colors"
+      <nav className="hidden lg:flex items-center ml-auto">
+        <div className="flex space-x-6 items-center">
+          {categories.map((category) => (
+            <Link
+              key={category.name}
+              href={`/quizzes/${category.name}`}
+              className="hover:text-[#43855b] transition-colors"
+            >
+              {category.name}
+            </Link>
+          ))}
+        </div>
+        <div className="ml-8">
+          <button
+            onClick={handleActionClick}
+            className="bg-[#43855b] text-white px-6 py-2 rounded-full hover:bg-[#2d5d3c] transition-colors"
           >
-            {category.name}
-          </Link>
-        ))}
+            {hasSignedUp ? 'View Profile' : 'Sign Up'}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu Backdrop */}
@@ -78,14 +119,35 @@ export default function HeaderClient({ categories }: HeaderClientProps) {
             <Link
               key={category.name}
               href={`/quizzes/${category.name}`}
-              className="block px-4 py-3 hover:bg-[#43855b]/10 transition-colors first:rounded-t-lg last:rounded-b-lg"
+              className="block px-4 py-3 hover:bg-[#43855b]/10 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               {category.name}
             </Link>
           ))}
+          <button
+            onClick={() => {
+              if (hasSignedUp) {
+                router.push('/profile');
+              } else {
+                setIsModalOpen(true);
+              }
+              setIsMenuOpen(false);
+            }}
+            className="w-full text-left px-4 py-3 hover:bg-[#43855b]/10 transition-colors border-t border-[#43855b]/10"
+          >
+            {hasSignedUp ? 'View Profile' : 'Sign Up'}
+          </button>
         </nav>
       </div>
+
+      <SignUpModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          checkEmailStatus();
+        }}
+      />
     </header>
   );
 }

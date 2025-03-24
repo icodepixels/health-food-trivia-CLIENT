@@ -4,7 +4,7 @@ import Header from './components/header'
 import LoadingIndicator from './components/LoadingIndicator'
 
 export const metadata: Metadata = {
-  title: 'Plant-based Trivia',
+  title: 'Veggie Quiz',
   description: 'Test your knowledge about Plant-based, nutrition, sustainability, ethics, history, science, and culture.',
   keywords: ['health', 'food', 'nutrition', 'trivia', 'quiz'],
   robots: {

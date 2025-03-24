@@ -38,7 +38,7 @@ export default async function CategoriesPage() {
       {/* Hero Section */}
       <div className="text-center mb-16">
         <h2 className="text-xl text-[#43855b] max-w-3xl mx-auto">
-        🌱 Welcome to Plant-based Trivia! 🥑 Ready to flex your plant-based knowledge? 🌿 From mighty mushrooms to powerful proteins,
+        🌱 Welcome to Veggie Quiz! 🥑 Ready to flex your plant-based knowledge? 🌿 From mighty mushrooms to powerful proteins,
           discover the amazing world of vegan cuisine! Pick a category below and let&apos;s grow together!
         </h2>
       </div>

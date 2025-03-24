@@ -1,4 +1,4 @@
-# Plant-based Trivia MVP Requirements
+# Veggie Quiz MVP Requirements
 
 ## Frontend (Next.js + Turbopack + Redux)
 • Landing page with quiz categories (nutrition, sustainability, ethics, history, science, culture)
@@ -321,4 +321,148 @@ For more complex errors, additional details may be provided:
   "error": "Database error",
   "details": "..."
 }
+```
+
+### Users and Quiz Results
+
+#### Create User
+- **URL:** `/api/users`
+- **Method:** `POST`
+- **Data Parameters:**
+  ```json
+  {
+    "email": "user@example.com"
+  }
+  ```
+- **Success Response:**
+  - **Code:** 201
+  - **Content:**
+    ```json
+    {
+      "success": true,
+      "message": "User created successfully",
+      "user_id": 1
+    }
+    ```
+- **Error Response:**
+  - **Code:** 409 CONFLICT
+    ```json
+    {
+      "success": false,
+      "message": "User already exists",
+      "user_id": 1
+    }
+    ```
+
+#### Save Quiz Result
+- **URL:** `/api/users/:email/results`
+- **Method:** `POST`
+- **Data Parameters:**
+  ```json
+  {
+    "quiz_id": 1,
+    "score": 85.5,
+    "answers": [
+      {
+        "question_id": 1,
+        "selected_answer": 2,
+        "is_correct": true
+      }
+    ]
+  }
+  ```
+- **Success Response:**
+  - **Code:** 201
+  - **Content:**
+    ```json
+    {
+      "success": true,
+      "message": "Quiz result saved successfully",
+      "result_id": 1
+    }
+    ```
+
+#### Get User Results
+- **URL:** `/api/users/:email/results`
+- **Method:** `GET`
+- **Success Response:**
+  - **Code:** 200
+  - **Content:**
+    ```json
+    {
+      "email": "user@example.com",
+      "results": [
+        {
+          "result_id": 1,
+          "quiz_id": 1,
+          "quiz_name": "Science Quiz",
+          "category": "Science",
+          "difficulty": "Medium",
+          "score": 85.5,
+          "answers": [
+            {
+              "question_id": 1,
+              "selected_answer": 2,
+              "is_correct": true
+            }
+          ],
+          "completed_at": "2024-03-20 15:30:00"
+        }
+      ],
+      "total_results": 1
+    }
+    ```
+
+#### Get User Statistics
+- **URL:** `/api/users/:email/stats`
+- **Method:** `GET`
+- **Success Response:**
+  - **Code:** 200
+  - **Content:**
+    ```json
+    {
+      "email": "user@example.com",
+      "overall_stats": {
+        "total_quizzes": 10,
+        "average_score": 82.5,
+        "highest_score": 100,
+        "lowest_score": 65,
+        "unique_quizzes": 8
+      },
+      "category_stats": [
+        {
+          "category": "Science",
+          "quizzes_taken": 5,
+          "average_score": 85.5
+        }
+      ]
+    }
+    ```
+
+### Database Schema
+
+[After existing schema, add:]
+
+### Users Table
+```sql
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    created_at TEXT NOT NULL
+)
+```
+
+### Quiz Results Table
+```sql
+CREATE TABLE quiz_results (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    quiz_id INTEGER NOT NULL,
+    score REAL NOT NULL,
+    answers TEXT NOT NULL,
+    completed_at TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (quiz_id) REFERENCES quiz (id)
+)
+```
 ```
