@@ -2,7 +2,7 @@ import CategoryClient from './CategoryClient';
 
 async function getQuizzesByCategory(category: string) {
   const res = await fetch(
-    `http://127.0.0.1:5000/api/quizzes?category=${category}`,
+    `http://127.0.0.1:9000/api/quizzes?category=${category}`,
     { cache: 'no-store' }
   );
   return res.json();
