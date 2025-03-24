@@ -28,7 +28,7 @@ https://dashboard.render.com/web/new?newUser=true
 • Session management (using cookies or tokens for tracking progress)
 • Endpoint to add or modify quizzes via Postman
 
-The server will start on `http://127.0.0.1:9000/`.
+The server will start on `http://127.0.0.1:5000/`.
 
 ## Database Schema
 

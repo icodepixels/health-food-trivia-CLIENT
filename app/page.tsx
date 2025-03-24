@@ -15,7 +15,7 @@ interface CategorySamples {
 }
 
 async function getCategorySamples() {
-  const response = await fetch('http://127.0.0.1:9000/api/quizzes/category-samples', {
+  const response = await fetch('http://127.0.0.1:5000/api/quizzes/category-samples', {
     cache: 'no-store',
     headers: {
       'Accept': 'application/json'
