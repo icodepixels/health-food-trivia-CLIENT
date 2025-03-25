@@ -1,7 +1,8 @@
 import ResultsClient from './ResultsClient';
+import { API_URL } from '../../../utils/api';
 
 async function getQuizData(id: string) {
-  const response = await fetch(`http://127.0.0.1:9000/api/quizzes/${id}/questions`, {
+  const response = await fetch(`${API_URL}/api/quizzes/${id}/questions`, {
     cache: 'no-store',
     headers: {
       'Accept': 'application/json'
