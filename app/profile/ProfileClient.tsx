@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { API_URL } from '../utils/api';
 
 interface CategoryStat {
   average_score: number;
@@ -40,7 +41,7 @@ export default function ProfileClient() {
 
       try {
         const response = await fetch(
-          `http://127.0.0.1:9000/api/users/${encodeURIComponent(email)}/stats`
+          `${API_URL}/api/users/${encodeURIComponent(email)}/stats`
         );
 
         if (!response.ok) {

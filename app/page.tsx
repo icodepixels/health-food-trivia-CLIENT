@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { API_URL } from './utils/api';
 
 interface Quiz {
   id: number;
@@ -15,7 +16,7 @@ interface CategorySamples {
 }
 
 async function getCategorySamples() {
-  const response = await fetch('http://127.0.0.1:9000/api/quizzes/category-samples', {
+  const response = await fetch(`${API_URL}/api/quizzes/category-samples`, {
     cache: 'no-store',
     headers: {
       'Accept': 'application/json'

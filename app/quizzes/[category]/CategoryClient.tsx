@@ -14,12 +14,24 @@ interface Quiz {
 
 interface CategoryClientProps {
   quizzes: Quiz[];
+  category: string;
 }
 
-export default function CategoryClient({ quizzes }: CategoryClientProps) {
+export default function CategoryClient({ quizzes, category }: CategoryClientProps) {
+  if (!quizzes || !Array.isArray(quizzes)) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+          <h2 className="text-lg font-semibold mb-2">No quizzes found</h2>
+          <p>There are no quizzes available in this category.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 capitalize">{quizzes?.[0]?.category} Quizzes</h1>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8 capitalize">{category} Quizzes</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {quizzes.map((quiz: Quiz) => (

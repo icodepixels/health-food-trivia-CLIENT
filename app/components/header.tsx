@@ -1,8 +1,9 @@
 import HeaderClient from './HeaderClient';
 import { Category } from '../types';
+import { API_URL } from '../utils/api';
 
 async function getCategories(): Promise<string[]> {
-  const response = await fetch('http://127.0.0.1:9000/api/categories', {
+  const response = await fetch(`${API_URL}/api/categories`, {
     cache: 'no-store'
   });
 

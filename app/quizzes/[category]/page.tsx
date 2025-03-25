@@ -1,11 +1,19 @@
 import CategoryClient from './CategoryClient';
+import { API_URL } from '../../utils/api';
 
 async function getQuizzesByCategory(category: string) {
   const res = await fetch(
-    `http://127.0.0.1:9000/api/quizzes?category=${category}`,
+    `${API_URL}/api/quizzes?category=${category}`,
     { cache: 'no-store' }
   );
-  return res.json();
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch quizzes for category ${category}: ${res.status}`);
+  }
+
+  const data = await res.json();
+  console.log('API Response:', data); // Debug log
+  return data || []; // Access the quizzes array from the response
 }
 
 export default async function CategoryPage({
@@ -17,5 +25,5 @@ export default async function CategoryPage({
   const decodedCategory = decodeURIComponent(resolvedParams.category);
   const quizzes = await getQuizzesByCategory(decodedCategory);
 
-  return <CategoryClient quizzes={quizzes} />;
+  return <CategoryClient quizzes={quizzes} category={decodedCategory} />;
 }

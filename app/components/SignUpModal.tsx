@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { API_URL } from '../utils/api';
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -29,7 +30,7 @@ export default function SignUpModal({ isOpen, onClose, onSignUpSuccess }: SignUp
     setError(null);
 
     try {
-      const response = await fetch('http://127.0.0.1:9000/api/users', {
+      const response = await fetch(`${API_URL}/api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

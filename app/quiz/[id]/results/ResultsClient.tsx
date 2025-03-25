@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import SignUpModal from '../../../components/SignUpModal';
+import { API_URL } from '../../../utils/api';
 
 interface Question {
   id: number;
@@ -72,7 +73,7 @@ export default function ResultsClient({
         answers: formattedAnswers,
       };
 
-      const response = await fetch(`http://127.0.0.1:9000/api/users/${encodeURIComponent(email)}/results`, {
+      const response = await fetch(`${API_URL}/api/users/${encodeURIComponent(email)}/results`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
