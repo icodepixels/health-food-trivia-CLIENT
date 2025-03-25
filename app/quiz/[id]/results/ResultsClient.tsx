@@ -18,6 +18,7 @@ interface Quiz {
   name: string;
   category: string;
   questions: Question[];
+  description: string;
   quiz: {
     name: string;
     category: string;
@@ -37,7 +38,7 @@ interface ResultsClientProps {
 interface QuizResult {
   quiz_id: number;
   score: number;
-  answers: number[];
+  answers: { [key: number]: number };
 }
 
 export default function ResultsClient({
@@ -56,14 +57,19 @@ export default function ResultsClient({
   const score = Math.round((correctAnswers / quiz.questions?.length) * 100);
 
   const saveQuizResults = async (email: string) => {
-    if (saveAttempted.current) return; // Use ref to prevent duplicate saves
+    if (saveAttempted.current) return;
     saveAttempted.current = true;
 
     try {
+      const formattedAnswers = quiz.questions.reduce((acc, question, index) => {
+        acc[question.id] = userAnswers[index];
+        return acc;
+      }, {} as { [key: number]: number });
+
       const result: QuizResult = {
-        quiz_id: quiz.quiz.id,
+        quiz_id: quiz.id,
         score,
-        answers: userAnswers,
+        answers: formattedAnswers,
       };
 
       const response = await fetch(`http://127.0.0.1:9000/api/users/${encodeURIComponent(email)}/results`, {
@@ -77,11 +83,11 @@ export default function ResultsClient({
       if (response.ok) {
         setResultsSaved(true);
       } else {
-        saveAttempted.current = false; // Reset on failure
+        saveAttempted.current = false;
         console.error('Failed to save quiz results');
       }
     } catch (error) {
-      saveAttempted.current = false; // Reset on error
+      saveAttempted.current = false;
       console.error('Error saving quiz results:', error);
     }
   };
@@ -109,8 +115,8 @@ export default function ResultsClient({
           {/* Score Summary */}
           <div className="text-center mb-12">
             <div className="text-2xl font-bold text-[#2d5d3c]">Results</div>
-            <h2 className="text-3xl font-bold text-[#2d5d3c]">{quiz.quiz.name}</h2>
-            <p className="text-lg text-[#2d5d3c] mb-8">{quiz.quiz.description}</p>
+            <h2 className="text-3xl font-bold text-[#2d5d3c]">{quiz.name}</h2>
+            <p className="text-lg text-[#2d5d3c] mb-8">{quiz.description}</p>
 
             <div className="inline-block bg-white rounded-full p-8 mb-6">
               <div className="text-6xl font-bold text-[#43855b]">{score}%</div>
